@@ -4,28 +4,31 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
+    <div class="container">
     <div class="logo-wrapper">
     <img alt="logo" class="logo" src="./assets/images/logo.png" width="75" />
-    <h2>Trello Generic</h2>
+    <h2 class="logo-title">Trello Generic</h2>
   </div>
-    <div class="wrapper">
-      <nav>
+   
+      <nav  class="nav">
         <RouterLink class="header-link" to="/">Home</RouterLink>
       </nav>
-    </div>
+   
+  </div>
   </header>
 
   <RouterView />
 </template>
 
-<style scoped>
+<style >
 header {
-  padding: 30px;
+  padding: 30px 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+ 
 }
-h2 {
+.logo-title {
   font-family: 'Lotus';
   color: #fff;
 }
@@ -36,7 +39,15 @@ h2 {
   display: flex;
   align-items: center;
 }
-.wrapper {
+.nav {
   display: flex;
+  gap:30px;
+}
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 30px;
 }
 </style>

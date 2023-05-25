@@ -1,52 +1,28 @@
-<!-- <script setup>
-import ColumnList from '../components/ColumnList.vue'
-</script> -->
 
 <template>
   <main>
-    <ColumnList />
+    <div class="container">
+     <ColumnList   :columns='[]'/>
+    </div>
   </main>
 </template>
 
 <script>
-import ColumnList from "@/components/ColumnList.vue";
-// import axios from 'axios';
-// import {ref} from 'vue'
-// import {usePosts} from "@/hooks/usePosts";
-// import useSortedPosts from "@/hooks/useSortedPosts";
-// import useSortedAndSearchedPosts from "@/hooks/useSortedAndSearchedPosts";
+import ColumnList from "../components/ColumnList.vue";
+
 export default {
   components: {
     ColumnList,
-   
   },
-  data() {
+  data(){
     return {
-      dialogVisible: false,
-      sortOptions: [
-        {value: 'title', name: 'По названию'},
-        {value: 'body', name: 'По содержимому'},
-      ]
+      columns: [],
     }
-  },
-  setup(props) {
-    // const {posts, totalPages, isPostsLoading} = usePosts(10);
-    // const {sortedPosts, selectedSort} = useSortedPosts(posts);
-    // const {searchQuery, sortedAndSearchedPosts} = useSortedAndSearchedPosts(sortedPosts)
 
-    return {
-      // posts,
-      // totalPages,
-      // isPostsLoading,
-      // sortedPosts,
-      // selectedSort,
-      // searchQuery,
-      // sortedAndSearchedPosts,
-    }
   }
 }
 </script>
 
 <style scoped>
-
+ 
 </style>
