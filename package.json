@@ -2,6 +2,7 @@
   "name": "test-vue",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://iuliia-sokol.github.io/vue-test/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
