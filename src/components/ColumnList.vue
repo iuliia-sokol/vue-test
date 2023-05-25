@@ -12,14 +12,14 @@
     </transition-group>
   </div>
 
-  <p class='no-columns-text' v-else style="color: red">
+  <p class='no-columns-text' v-else>
     Додайте колонку
   </p>
-
+<p>Hello</p>
   </template>
 
 <script>
-import ColumnItem from "@/components/ColumnItem";
+import ColumnItem from "../components/ColumnItem.vue";
 export default {
   components: {ColumnItem},
   props: {
