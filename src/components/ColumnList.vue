@@ -1,6 +1,6 @@
 <template>
-     <div v-if="columns.length > 0">
-    <h3>Список колонок</h3>
+    <div v-if="columns.length > 0">
+    <h3 >Список колонок</h3>
 
     <transition-group name="user-list">
       <column-item
@@ -12,9 +12,9 @@
     </transition-group>
   </div>
 
-  <h2 v-else style="color: red">
+  <p class='no-columns-text' v-else style="color: red">
     Додайте колонку
-  </h2>
+  </p>
 
   </template>
 
@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style scoped>
+.no-columns-text {
+  color: #fff;
+}
 .user-list-item {
   display: inline-block;
   margin-right: 10px;
