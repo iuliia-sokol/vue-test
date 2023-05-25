@@ -1,9 +1,9 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+// import ColumnList from '@/components/ColumnList'
 </script>
 
 <template>
   <main>
-    <!-- <TheWelcome /> -->
+    <!-- <ColumnList /> -->
   </main>
 </template>
