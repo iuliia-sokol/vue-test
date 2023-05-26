@@ -2,10 +2,10 @@
     <li :column='column' class="column">
       <div class="column__top-wrapper">
         <h4 class="column__title">{{ column.title }}</h4>
-        <my-button
+        <my-button class="btn-transparent"
          @click="$emit('remove', column)"
        >
-        X
+       <font-awesome-icon icon="fa-solid fa-trash" />
        </my-button>
       </div>
       
@@ -70,5 +70,9 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   }
   .column__title {
     color: #fff;
+  }
+  .btn-transparent{
+    border: none;
+    background-color: transparent;
   }
   </style>
