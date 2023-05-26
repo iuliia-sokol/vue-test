@@ -22,7 +22,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style >
 header {
-  padding: 30px 0px;
+  padding-top: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;

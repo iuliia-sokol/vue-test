@@ -1,24 +1,25 @@
 <template>
-    <div v-if="columns.length > 0">
-    <h3 >Список колонок</h3>
-
-    <transition-group name="user-list">
+  <div class="columns__wrapper">
+   
+    <ul  v-if="columns.length > 0" :columns='columns' class="columns__list">
       <column-item
         v-for="column in columns"
         :column="column"
         :key="column.id"
         @remove="$emit('remove', column)"
       />
-    </transition-group>
-  </div> 
+    </ul>
 
-  <p class='no-columns-text' v-else>
-    Додайте вашу першу панель
+  <div  v-else class="no-columns__wrapper">
+  <p class='no-columns__text'>
+    Створіть вашу першу панель
   </p>
+  </div>
 
   <button class="add-column-btn"  @click="showDialog">
     <font-awesome-icon icon="fa-solid fa-calendar-plus" size="lg"  beat-fade style="--fa-animation-duration: 2s; --fa-beat-scale: 2.0;"  />
   </button>
+</div>
   <my-dialog v-model:show="dialogVisible">
       <column-form
         @create="createColumn"
@@ -31,13 +32,18 @@ import ColumnForm from "@/components/ColumnForm.vue";
 import MyDialog from '@/components/MyDialog.vue'
 import ColumnItem from "@/components/ColumnItem.vue";
 export default {
+  name:'ColumnList',
   components: {ColumnItem, ColumnForm, MyDialog},
   props: {
     columns: {
       type: Array,
+      default: ()=>[],
       required: true
     }
   },
+  mounted() {
+        // console.log(${columns})
+    },
 
 data() {
     return {
@@ -52,7 +58,7 @@ methods: {
       this.columns.push(column);
       this.dialogVisible = false;
     },
-    removePost(column) {
+    removeColumn(column) {
       this.columns = this.columns.filter(p => p.id !== column.id)
     },
 }
@@ -60,6 +66,12 @@ methods: {
 </script>
 
 <style scoped>
+.columns__wrapper {
+  display: flex;
+  gap:20px;
+  justify-content: flex-start;
+  width: 100%;
+}
 .add-column-btn {
   width:40px;
   height:40px;
@@ -74,23 +86,13 @@ backdrop-filter: blur(5px);
 -webkit-backdrop-filter: blur(5px);
 border: 1px solid rgba(255, 255, 255, 0.3);
 }
-.no-columns-text {
+.no-columns__text {
   color: #fff;
 }
-.user-list-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-.user-list-enter-active,
-.user-list-leave-active {
-  transition: all 0.4s ease;
-}
-.user-list-enter-from,
-.user-list-leave-to {
-  opacity: 0;
-  transform: translateX(130px);
-}
-.user-list-move {
-  transition: transform 0.4s ease;
+.columns__list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap:20px;
 }
 </style>

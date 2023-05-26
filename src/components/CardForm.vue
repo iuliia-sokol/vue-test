@@ -12,6 +12,11 @@
         type="text"
         placeholder="Опис"
       />
+      <my-input
+        v-model="card.deadline"
+        type="date"
+        placeholder="Строк виконання"
+      />
       <my-button
         style="align-self: flex-end; margin-top: 15px"
         @click="createCard"
@@ -26,23 +31,27 @@
   import MyButton from '@/components/MyButton.vue'
 
   export default {
+    name: 'CardForm',
     components: {MyInput, MyButton},
-
+    props: {
+    },
     data() {
       return {
         card: {
           title: '',
-          body: ''
+          body: '',
+          deadline: '',
         }
       }
     },
     methods: {
-      createPost() {
+      createCard() {
         this.card.id = Date.now();
         this.$emit('create', this.card)
         this.card = {
           title: '',
-          body: ''
+          body: '',
+          deadline: '',
         }
       }
     },

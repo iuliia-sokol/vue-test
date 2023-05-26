@@ -2,7 +2,8 @@
 <template>
   <main>
     <div class="container">
-     <ColumnList   :columns='[]'/>
+     <h3 class="title">Список панелей</h3>
+     <ColumnList />
     </div>
   </main>
 </template>
@@ -14,15 +15,16 @@ export default {
   components: {
     ColumnList,
   },
-  data(){
-    return {
-      columns: [],
-    }
-
-  }
 }
 </script>
 
 <style scoped>
- 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+ .title {
+  font-weight: 700;
+  color:#fff;
+ }
 </style>

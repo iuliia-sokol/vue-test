@@ -12,9 +12,6 @@
   export default {
     name: 'MyDialog',
     mixins: [toggleMixin],
-    mounted() {
-      console.log('dialog mounted')
-    }
   }
   </script>
   
