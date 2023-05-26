@@ -1,33 +1,41 @@
 <template>
-
-        <li :card='card' class="card">
+    <li :card='card' class="card">
       <div class="card__top-wrapper">
         
         <h4 class="card__title">{{ card.title }}</h4>
-        <my-button
-         @click="$emit('remove', card)"
+        <button class="card__delete-btn"
+         @click='removeCard'
        >
         X
-       </my-button>
+       </button>
       </div>
       <div class="card__content">
-        <p>{{ card.deadline }}</p>
+        <p class="card__deadline" v-if="card.deadline !== ''">{{ card.deadline }}</p>
       </div>
     </li>
 
 </template>
 
 <script>
-import MyButton from '@/components/MyButton.vue'
     export default {
         name:'CardItem',
-        components:{MyButton},
+        components:{},
         props: {
         card: {
         type: Object,
-        required: true,
+        required: true, 
       },
-    }
+      cards: {
+      type: Array,
+      default: ()=>[],
+      required: true
+    },
+    },
+    methods: {
+     removeCard(card) {
+      this.cards = this.cards.filter(item => item.id !== card.id)
+    },
+    },
     }
 </script>
 
@@ -36,6 +44,13 @@ import MyButton from '@/components/MyButton.vue'
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .card__top-wrapper{
     display: flex;
@@ -44,5 +59,20 @@ import MyButton from '@/components/MyButton.vue'
 .card__content{
     display: flex;
     flex-direction: column;
+    gap:12px;
+}
+.card__delete-btn {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+}
+.card__deadline {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: yellow;
+    width: fit-content;
+    font-size: small;
 }
 </style>

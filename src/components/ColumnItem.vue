@@ -11,67 +11,41 @@
       
       <CardsList :cards="cards" />
 
-      <div class="column__btns">
-        <my-button
-        @click="showDialog"
-        >
-          Додати картку
-        </my-button>
-      </div>
+
     </li>
 
 
-    <my-dialog v-model:show="dialogVisible">
-      <card-form
-        @create="createCard"
-      />
-    </my-dialog>
+
 
   </template>
   
   <script>
   import MyButton from '@/components/MyButton.vue'
-  import MyDialog from '@/components/MyDialog.vue'
-  import CardForm from "@/components/CardForm.vue";
   import CardsList from "@/components/CardsList.vue";
   export default {
     name: 'ColumnItem',
-    components: {MyButton, MyDialog, CardForm, CardsList},
+    components: {MyButton, CardsList},
     props: {
         column: {
         type: Object,
         required: true,
       },
-      cards: {
-      type: Array,
-      default: ()=>[],
-      required: true
-    }
+
     },
     data() {
     return {
-      dialogVisible: false,
+      cards: []
     }
   },
-  methods: {
-  showDialog() {
-      this.dialogVisible = true;
-    },
-    createCard(card) {
-      this.cards.push(card);
-      this.dialogVisible = false;
-    },
-    removeCard(card) {
-      this.cards = this.cards.filter(p => p.id !== card.id)
-    },
-    
-}
+
   }
   </script>
   
   <style scoped>
   .column {
+    height: fit-content;
     width: calc(100% / 4 - 80px);
+    min-width: 200px;
     padding: 15px;
     border: 2px solid whitesmoke;
     border-radius: 16px;
@@ -95,8 +69,5 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   }
   .column__title {
     color: #fff;
-  }
-  .column__btns {
-    display: flex;
   }
   </style>

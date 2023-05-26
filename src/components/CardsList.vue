@@ -10,21 +10,62 @@
     Карток поки немає
   </p>
   </div>
+
+  <div class="btn-wrapper">
+        <my-button
+        @click="showDialog"
+        >
+          Додати картку
+        </my-button>
+      </div>
+
+      <my-dialog v-model:show="dialogVisible">
+      <card-form
+        @create="createCard"
+      />
+    </my-dialog>
 </template>
 
 <script>
 import CardItem from '@/components/CardItem.vue'
+import MyButton from '@/components/MyButton.vue'
+import MyDialog from '@/components/MyDialog.vue'
+import CardForm from "@/components/CardForm.vue";
     export default {
     name:'CardsList',
-    components: {CardItem},
+    components: {CardItem, MyButton, MyDialog, CardForm },
+    props: { 
+      cards: {
+      type: Array,
+      default: ()=>[],
+      required: true
+    }},
     data() {
     return {
-      cards: 'cards',
+      dialogVisible: false,
     }
   },
+  methods: {
+  showDialog() {
+      this.dialogVisible = true;
+    },
+    createCard(card) {
+      this.cards.push(card);
+      this.dialogVisible = false;
+    },
+    
+}
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.cards{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.btn-wrapper{
+    display: flex;
+    justify-content: center;
+}
 </style>

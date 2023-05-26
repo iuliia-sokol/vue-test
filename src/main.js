@@ -22,9 +22,9 @@ directives.forEach(directive => {
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 
-.use(Vue3Mq, {
-  preset: 'devices'
-})
+// .use(Vue3Mq, {
+//   preset: 'devices'
+// })
 
 
 .use(createPinia())

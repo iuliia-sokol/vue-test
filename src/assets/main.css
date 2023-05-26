@@ -20,7 +20,7 @@ body {
   background-image: url(./images/top-gradient-min.png);
   background-position: top;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
   min-height: 100vh;
   box-sizing: border-box;
   margin: 0;

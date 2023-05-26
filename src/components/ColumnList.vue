@@ -6,7 +6,7 @@
         v-for="column in columns"
         :column="column"
         :key="column.id"
-        @remove="$emit('remove', column)"
+        @remove="$emit('removeColumn', column)"
       />
     </ul>
 
@@ -41,10 +41,6 @@ export default {
       required: true
     }
   },
-  mounted() {
-        // console.log(${columns})
-    },
-
 data() {
     return {
       dialogVisible: false,
@@ -59,7 +55,7 @@ methods: {
       this.dialogVisible = false;
     },
     removeColumn(column) {
-      this.columns = this.columns.filter(p => p.id !== column.id)
+      this.columns = this.columns.filter(item => item.id !== column.id)
     },
 }
 }
@@ -67,10 +63,10 @@ methods: {
 
 <style scoped>
 .columns__wrapper {
+  width: 100%;
   display: flex;
   gap:20px;
   justify-content: flex-start;
-  width: 100%;
 }
 .add-column-btn {
   width:40px;
@@ -92,7 +88,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 .columns__list {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap:20px;
 }
 </style>
