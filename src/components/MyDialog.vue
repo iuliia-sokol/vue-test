@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog" v-if="show" @click.stop="hideDialog">
+    <div class="dialog" v-if="show" @click.stop="hideDialog" >
       <div @click.stop class="dialog__content">
         <slot></slot>
       </div>
@@ -31,7 +31,7 @@
     background: white;
     border-radius: 12px;
     min-height: 50px;
-    min-width: 300px;
+    min-width: fit-content;
     padding: 20px;
   }
   </style>

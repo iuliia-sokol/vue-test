@@ -19,9 +19,10 @@
         </my-button>
       </div>
 
-      <my-dialog v-model:show="dialogVisible">
+    <my-dialog v-model:show="dialogVisible">
       <card-form
         @create="createCard"
+        @hide="hideDialog"
       />
     </my-dialog>
 </template>
@@ -49,6 +50,9 @@ import CardForm from "@/components/CardForm.vue";
   showDialog() {
       this.dialogVisible = true;
     },
+    hideDialog() {
+      this.dialogVisible = false;
+    },
     createCard(card) {
       this.cards.push(card);
       this.dialogVisible = false;
@@ -63,6 +67,7 @@ import CardForm from "@/components/CardForm.vue";
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap:12px;
 }
 .btn-wrapper{
     display: flex;

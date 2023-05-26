@@ -43,6 +43,7 @@
   
   <style scoped>
   .column {
+    position: relative;
     height: fit-content;
     width: calc(100% / 4 - 80px);
     min-width: 200px;

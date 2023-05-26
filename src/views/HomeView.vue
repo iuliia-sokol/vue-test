@@ -24,6 +24,7 @@ main {
   min-width: 100%;
   overflow-x: scroll;
   padding-top: 120px;
+ 
 }
 .container {
   display: flex;
