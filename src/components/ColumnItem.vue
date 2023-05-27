@@ -1,5 +1,9 @@
 <template>
-    <li :column='column' class="column">
+    <li :column='column' class="column"
+    @dragover.prevent
+         @dragenter.prevent
+         @drop="onDrop"
+    draggable="true">
       <div class="column__top-wrapper">
         <h4 class="column__title">{{ column.title }}</h4>
         <my-button class="btn-transparent"
@@ -12,6 +16,7 @@
       <CardsList :cards="cards" />
 
     </li>
+
   </template>
   
   <script>
@@ -36,6 +41,12 @@
       cards: []
     }
   },
+  methods: {
+    onDrop(event){
+      // console.log(this.column.id, this.cards);
+      this.$emit('drop', (event, this.column.id, this.cards))
+    }
+  }
 
   }
   </script>

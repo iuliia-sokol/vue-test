@@ -1,13 +1,15 @@
 <template>
   <div class="columns__wrapper">
    
-    <ul  v-if="columns.length > 0" :columns='columns' class="columns__list">
+    <ul  v-if="columnsArr.length > 0" :columns=this.columnsArr class="columns__list">
       <column-item
-        v-for="column in columns"
+        v-for="column in this.columnsArr"
         :column="column"
-        :columns="columns"
+        :columns=this.columnsArr
         :key="column.id"
         @remove="removeColumn"
+        @drop="onDrop"
+        @drag="startDrag"
       />
     </ul>
 
@@ -42,10 +44,10 @@ export default {
       required: true
     }
   },
-data() {
+data(props) {
     return {
       dialogVisible: false,
-      
+      columnsArr: props.columns
     }
   },
 methods: {
@@ -53,12 +55,25 @@ methods: {
       this.dialogVisible = true;
     },
     createColumn(column) {
-      this.columns.push(column);
+      this.columnsArr.push(column);
       this.dialogVisible = false;
     },
     removeColumn(column) {
-      this.columns = this.columns.filter(item => item.id !== column.id)
+      this.columnsArr = this.columnsArr.filter(item => item.id !== column.id)
     },
+    startDrag(e, item) {
+      console.log(item);
+      e.dataTransfer.dropEffect = 'move'
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('itemId', item.id.toString())
+    },
+    onDrop(e,list, items){
+      console.log(list,items);
+      const itemId=e.dataTransfer.getData('itemId')
+      const item=items.value.find((item)=> item.id===itemId)
+      item.list=list
+    }
+
 }
 }
 </script>

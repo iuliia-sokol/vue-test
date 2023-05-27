@@ -1,10 +1,14 @@
 <template>
-    <li :card='card' class="card">
+    <li :cards='cards' :card='card' class="card"  draggable="true"
+      @dragstart="dragCard"
+        
+      >
       <div class="card__top-wrapper">
         
         <h4 class="card__title">{{ card.title }}</h4>
         <button class="card__delete-btn"
-         @click="$emit('remove', card)"
+        
+         @click="this.$emit('remove', this.card.id)"
        >
         X
        </button>
@@ -31,10 +35,26 @@
       required: true
     },
     },
+    // data() {
+    // return {
+    //   cardCurrent: props.card.id,
+    // }},
+    setup(props) {
+      return {
+      cardCurrent: props.card,}
+  },
     methods: {
-    
-    },
+        dragCard(event){
+        console.log(event, this.cardCurrent);
+        this.$emit('drag', (event, this.cardCurrent))
     }
+    },
+
+  
+    
+
+    }
+   
 </script>
 
 <style  scoped>

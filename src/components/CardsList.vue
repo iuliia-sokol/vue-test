@@ -1,6 +1,8 @@
 <template>
-    <ul v-if="cards.length > 0" :cards="cards" class="cards"> 
-        <card-item  :cards="cards" v-for="card in cards"
+    <ul v-if="cardsArr.length > 0" :cards=this.cardsArr class="cards"> 
+        <card-item  
+        :cards=this.cardsArr
+        v-for="card in this.cardsArr"
         :card="card"
         :key="card.id"
         @remove="removeCard"
@@ -42,11 +44,13 @@ import CardForm from "@/components/CardForm.vue";
       default: ()=>[],
       required: true
     }},
-    data() {
+    data(props) {
     return {
       dialogVisible: false,
+      cardsArr: props.cards
     }
   },
+
   methods: {
     showDialog() {
       this.dialogVisible = true;
@@ -55,12 +59,13 @@ import CardForm from "@/components/CardForm.vue";
       this.dialogVisible = false;
     },
     createCard(card) {
-      this.cards.push(card);
+      this.cardsArr.push(card);
       this.dialogVisible = false;
     },
-    removeCard(card) {
-      this.cards = this.cards.filter(item => item.id !== card.id)
-    },
+    removeCard(id) {
+      return this.cardsArr = this.cardsArr.filter(item => item.id !== id)
+    }
+   
     
 }
     }

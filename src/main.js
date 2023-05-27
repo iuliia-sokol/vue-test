@@ -1,7 +1,7 @@
 import './assets/main.css'
 import directives from '@/directives';
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+// import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
@@ -23,7 +23,7 @@ directives.forEach(directive => {
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 
-.use(createPinia())
+// .use(createPinia())
 .use(router)
 
 .mount('#app')

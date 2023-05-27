@@ -49,7 +49,7 @@
     data() {
       return {
         card: {
-          id: '',
+          id: Date.now(),
           title: '',
           body: '',
           deadline: '',
@@ -75,7 +75,7 @@
         }
         this.$emit('create', this.card)
         this.card = {
-          id: Date.now(),
+          id: '',
           title: '',
           body: '',
           deadline: '',
