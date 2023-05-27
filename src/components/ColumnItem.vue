@@ -2,10 +2,10 @@
     <li :column='column' class="column"
     @dragover.prevent
          @dragenter.prevent
-         @drop="onDrop"
+         @drop="onDrop($event, this.currentColumn.id, this.cards)"
     draggable="true">
       <div class="column__top-wrapper">
-        <h4 class="column__title">{{ column.title }}</h4>
+        <h4 class="column__title">{{ column.title }} <span class="cards-counter">{{countCards}}</span></h4>
         <my-button class="btn-transparent"
          @click="$emit('remove', column)"
        >
@@ -13,7 +13,7 @@
        </my-button>
       </div>
       
-      <CardsList :cards="cards" />
+      <CardsList :cards=this.cardsArr :column=this.currentColumn />
 
     </li>
 
@@ -30,21 +30,34 @@
         type: Object,
         required: true,
       },
-      columns: {
-      type: Array,
-      default: ()=>[],
-      required: true
-    }
+        columns: {
+        type: Array,
+        default: ()=>[],
+        required: true
+      }, 
+        cards: {
+          type: Array,
+          default: ()=>[],
+          required: true
+        }
     },
-    data() {
+    data(props) {
     return {
-      cards: []
+      cardsArr: props.cards,
+      currentColumn: props.column
     }
   },
+  computed:{
+    countCards() {
+      return this.cardsArr.filter(item=> item.columnId == this.column.id).length
+    }
+
+  },
   methods: {
-    onDrop(event){
-      // console.log(this.column.id, this.cards);
-      this.$emit('drop', (event, this.column.id, this.cards))
+    onDrop(e, columnId, items){
+      const itemId=e.dataTransfer.getData('itemId')
+      const item=items.find((item)=> item.id==itemId)
+      item.columnId=columnId
     }
   }
 
@@ -79,7 +92,27 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
   }
   .column__title {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 80%;
     color: #fff;
+    text-overflow: ellipsis;
+  }
+  .cards-counter{
+    position: absolute;
+    top:-10px;
+    left:-10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 128, 0, 0.7);
+    border-radius: 50%;
+    padding: 4px;
+    color:#fff;
+    font-weight: lighter;
   }
   .btn-transparent{
     border: none;

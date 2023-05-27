@@ -2,7 +2,7 @@
     <ul v-if="cardsArr.length > 0" :cards=this.cardsArr class="cards"> 
         <card-item  
         :cards=this.cardsArr
-        v-for="card in this.cardsArr"
+        v-for="card in this.cardsArr.filter(card => card.columnId==this.column.id)"
         :card="card"
         :key="card.id"
         @remove="removeCard"
@@ -24,6 +24,7 @@
 
     <my-dialog v-model:show="dialogVisible">
       <card-form
+        :column="column"
         @create="createCard"
         @hide="hideDialog"   
       />
@@ -43,7 +44,12 @@ import CardForm from "@/components/CardForm.vue";
       type: Array,
       default: ()=>[],
       required: true
-    }},
+    },
+        column: {
+        type: Object,
+        required: true,
+      },
+  },
     data(props) {
     return {
       dialogVisible: false,
@@ -64,9 +70,7 @@ import CardForm from "@/components/CardForm.vue";
     },
     removeCard(id) {
       return this.cardsArr = this.cardsArr.filter(item => item.id !== id)
-    }
-   
-    
+    }    
 }
     }
 </script>

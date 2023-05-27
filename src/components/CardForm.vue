@@ -44,16 +44,20 @@
     name: 'CardForm',
     components: {MyInput, MyButton},
     props: {
-     
+        column: {
+        type: Object,
+        required: true,
+      },
     },
-    data() {
+    data(props) {
       return {
         card: {
           id: Date.now(),
           title: '',
           body: '',
           deadline: '',
-          mark:[]
+          mark:[],
+          columnId: props.column.id
         },    
         dialogVisible: false,
         isInputValid: true
@@ -67,7 +71,6 @@
         }
       },
       createCard() {
-       
         if (!this.card.title) {
           alert('Введіть назву картки')
           this.isInputValid = false
@@ -79,7 +82,8 @@
           title: '',
           body: '',
           deadline: '',
-          mark:[]
+          mark:[],
+          columnId:''
         }
       },
     },

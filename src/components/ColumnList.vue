@@ -7,9 +7,8 @@
         :column="column"
         :columns=this.columnsArr
         :key="column.id"
+        :cards="cards"
         @remove="removeColumn"
-        @drop="onDrop"
-        @drag="startDrag"
       />
     </ul>
 
@@ -42,6 +41,11 @@ export default {
       type: Array,
       default: ()=>[],
       required: true
+    },
+    cards: {
+      type: Array,
+      default: ()=>[],
+      required: true
     }
   },
 data(props) {
@@ -61,18 +65,6 @@ methods: {
     removeColumn(column) {
       this.columnsArr = this.columnsArr.filter(item => item.id !== column.id)
     },
-    startDrag(e, item) {
-      console.log(item);
-      e.dataTransfer.dropEffect = 'move'
-      e.dataTransfer.effectAllowed = 'move'
-      e.dataTransfer.setData('itemId', item.id.toString())
-    },
-    onDrop(e,list, items){
-      console.log(list,items);
-      const itemId=e.dataTransfer.getData('itemId')
-      const item=items.value.find((item)=> item.id===itemId)
-      item.list=list
-    }
 
 }
 }

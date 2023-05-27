@@ -24,14 +24,12 @@
 
   export default {
     components: {MyInput, MyButton},
-  props: {
-    columns: {
-      type: Array,
-      required: false
-    },
-    
+    props: {
+        columns: {
+          type: Array,
+          required: false
+        },
   },
-
     data() {
       return {
         column: {

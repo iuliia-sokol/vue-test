@@ -1,7 +1,6 @@
 <template>
-    <li :cards='cards' :card='card' class="card"  draggable="true"
-      @dragstart="dragCard"
-        
+    <li :cards='cards' :card=this.cardCurrent class="card"  draggable="true"
+      @dragstart="startDrag($event, this.cardCurrent)"
       >
       <div class="card__top-wrapper">
         
@@ -35,19 +34,16 @@
       required: true
     },
     },
-    // data() {
-    // return {
-    //   cardCurrent: props.card.id,
-    // }},
-    setup(props) {
-      return {
-      cardCurrent: props.card,}
-  },
+    data(props) {
+    return {
+      cardCurrent: props.card,
+    }},
     methods: {
-        dragCard(event){
-        console.log(event, this.cardCurrent);
-        this.$emit('drag', (event, this.cardCurrent))
-    }
+    startDrag(e, item) {
+      e.dataTransfer.dropEffect = 'move'
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('itemId', item.id.toString())
+    },
     },
 
   
