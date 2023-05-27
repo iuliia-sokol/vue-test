@@ -27,7 +27,18 @@
         placeholder="Строк виконання"
       />
       Вкажіть дедлайн (необов'язково)
-    </label>
+     </label>
+
+      <label class="markers-wrapper label">
+        <input type="checkbox" value="pink"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: pink'"></span>
+        <input type="checkbox" value="blue"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: blue'"></span>
+        <input type="checkbox" value="yellow"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: yellow'"></span>
+        <input type="checkbox" value="teal"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: teal'"></span>
+        <input type="checkbox" value="orange"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: orange'"></span>
+        <input type="checkbox" value="violet"  @input="onCheckboxChange"> <span class="marker" :style="'background-color: violet'"></span>
+        За бажанням додайте маркери
+      </label>
+  
       <div class="btns-wrapper">
       <my-button
         @click="createCard"
@@ -62,14 +73,17 @@
           title: '',
           body: '',
           deadline: '',
-          mark:[],
+          marks: [],
           columnId: props.column.id
         },    
         dialogVisible: false,
-        isInputValid: true
+        isInputValid: true,
       }
     },
     methods: {
+      onCheckboxChange(event){
+        this.card.marks.push(event.target.value)
+      },
       onInputChange(event){
         this.isInputValid = true
         if(!event.target.value) {
@@ -88,7 +102,7 @@
           title: '',
           body: '',
           deadline: '',
-          mark:[],
+          marks:[],
           columnId:''
         }
       },
@@ -121,5 +135,17 @@
   .exit-btn {
     background-color: transparent;
     border: 2px solid orange;
+  }
+  .markers-wrapper{
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:12px;
+  }
+  .marker{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 12px;
   }
   </style>

@@ -13,6 +13,12 @@
        </button>
       </div>
       <div class="card__content">
+        <div class="markers-wrapper" >
+         <span 
+          v-for="mark in cardMarks" 
+         :key="mark"
+         class="marker" :style="{'background-color': mark}"></span>
+        </div>
         <p class="card__description"  v-if="card.body !== ''">{{ card.body }}</p>
         <p class="card__deadline" 
          :style= "checkDeadline? 'background-color: red;' : 'background-color: green;'"
@@ -27,19 +33,20 @@
         name:'CardItem',
         components:{},
         props: {
-        card: {
-        type: Object,
-        required: true, 
+            card: {
+            type: Object,
+            required: true, 
+          },
+            cards: {
+            type: Array,
+            default: ()=>[],
+            required: true
+          },
       },
-        cards: {
-        type: Array,
-        default: ()=>[],
-        required: true
-      },
-    },
     data(props) {
     return {
       cardCurrent: props.card,
+      cardMarks: props.card.marks
     }},
     computed:{
       checkDeadline(){
@@ -107,5 +114,15 @@
     background-color: yellow;
     width: fit-content;
     font-size: small;
+  }
+.markers-wrapper{
+  display: flex;
+  gap:6px;
 }
+  .marker{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 12px;
+  }
 </style>
