@@ -74,10 +74,10 @@
     border: 2px solid whitesmoke;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.19);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin-top: 15px;
     display: flex;
     flex-direction: column;

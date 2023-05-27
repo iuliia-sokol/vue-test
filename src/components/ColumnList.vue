@@ -95,9 +95,11 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
 }
 .columns__list {
-  width: 100%;
+  max-width:fit-content;
+  min-height: 100vh;
   display: flex;
   flex-wrap: nowrap;
   gap:20px;
+  overflow-y: visible;
 }
 </style>

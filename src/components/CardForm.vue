@@ -1,6 +1,7 @@
 <template>
     <form @submit.prevent>
       <h4>Створити картку</h4>
+      <label class="label">
       <my-input
         v-focus
         v-model="card.title"
@@ -9,26 +10,31 @@
         @change="onInputChange"
         :class="isInputValid? 'valid-input': 'invalid-input'"
       />
+      Назвіть картку
+    </label>
+    <label class="label"> 
       <my-input
         v-model="card.body"
         type="text"
         placeholder="Опис"
-
       />
+      Додайте опис (необов'язково)
+    </label>
+    <label class="label">
       <my-input
         v-model="card.deadline"
         type="date"
         placeholder="Строк виконання"
       />
+      Вкажіть дедлайн (необов'язково)
+    </label>
       <div class="btns-wrapper">
       <my-button
-        style="align-self: flex-end; margin-top: 15px"
         @click="createCard"
       >
         Додати
       </my-button>
-      <my-button v-model:show="dialogVisible"
-        style="align-self: flex-start; margin-top: 15px"
+      <my-button class="exit-btn" v-model:show="dialogVisible"
         @click="$emit('hide', false)"
       >
         Вийти
@@ -97,7 +103,11 @@
     flex-direction: column;
     z-index: 10;
   }
+  .label {
+  font-size: x-small;
+  }
   .btns-wrapper {
+    margin-top: 15px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -107,5 +117,9 @@
   }
   .invalid-input {
     outline: 2px solid red;
+  }
+  .exit-btn {
+    background-color: transparent;
+    border: 2px solid orange;
   }
   </style>
