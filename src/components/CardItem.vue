@@ -9,7 +9,7 @@
         
          @click="this.$emit('remove', this.card.id)"
        >
-        X
+       <font-awesome-icon icon="fa-solid fa-xmark" />
        </button>
       </div>
       <div class="card__content">
