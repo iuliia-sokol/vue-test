@@ -7,7 +7,7 @@
         v-model="card.title"
         type="text"
         placeholder="Назва"
-        @change="onInputChange"
+        @input="onInputChange"
         :class="isInputValid? 'valid-input': 'invalid-input'"
       />
       Назвіть картку

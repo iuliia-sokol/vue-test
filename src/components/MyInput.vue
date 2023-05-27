@@ -23,6 +23,7 @@
     padding: 10px 15px;
     margin-top: 15px;
     margin-bottom: 6px;
+    border-radius: 8px;
   }
   
   </style>

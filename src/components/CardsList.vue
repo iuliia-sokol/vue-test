@@ -8,7 +8,7 @@
         @remove="removeCard"
       />
     </ul>
-    <div  v-else class="no-cards__wrapper">
+    <div  v-if='countCards<=0' class="no-cards__wrapper">
   <p class='no-cards__text'>
     Карток поки немає
   </p>
@@ -56,7 +56,11 @@ import CardForm from "@/components/CardForm.vue";
       cardsArr: props.cards
     }
   },
-
+  computed: {
+   countCards(){
+    return this.cardsArr.filter(item=> item.columnId == this.column.id).length
+  }
+  },
   methods: {
     showDialog() {
       this.dialogVisible = true;
