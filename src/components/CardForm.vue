@@ -6,6 +6,8 @@
         v-model="card.title"
         type="text"
         placeholder="Назва"
+        @change="onInputChange"
+        :class="isInputValid? 'valid-input': 'invalid-input'"
       />
       <my-input
         v-model="card.body"
@@ -51,17 +53,33 @@
           title: '',
           body: '',
           deadline: '',
+          mark:[]
         },    
+        dialogVisible: false,
+        isInputValid: true
       }
     },
     methods: {
+      onInputChange(event){
+        this.isInputValid = true
+        if(!event.target.value) {
+        this.isInputValid = false
+        }
+      },
       createCard() {
+       
+        if (!this.card.title) {
+          alert('Введіть назву картки')
+          this.isInputValid = false
+          return
+        }
         this.$emit('create', this.card)
         this.card = {
           id: Date.now(),
           title: '',
           body: '',
           deadline: '',
+          mark:[]
         }
       },
     },
@@ -77,7 +95,13 @@
   }
   .btns-wrapper {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
   }
-  
+  .valid-input {
+    outline: 2px solid green;
+  }
+  .invalid-input {
+    outline: 2px solid red;
+  }
   </style>

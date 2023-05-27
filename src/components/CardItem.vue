@@ -4,7 +4,7 @@
         
         <h4 class="card__title">{{ card.title }}</h4>
         <button class="card__delete-btn"
-         @click='removeCard'
+         @click="$emit('remove', card)"
        >
         X
        </button>
@@ -32,9 +32,7 @@
     },
     },
     methods: {
-     removeCard(card) {
-      this.cards = this.cards.filter(item => item.id !== card.id)
-    },
+    
     },
     }
 </script>

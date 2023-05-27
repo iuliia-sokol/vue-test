@@ -3,6 +3,7 @@
         <card-item  :cards="cards" v-for="card in cards"
         :card="card"
         :key="card.id"
+        @remove="removeCard"
       />
     </ul>
     <div  v-else class="no-cards__wrapper">
@@ -22,7 +23,7 @@
     <my-dialog v-model:show="dialogVisible">
       <card-form
         @create="createCard"
-        @hide="hideDialog"
+        @hide="hideDialog"   
       />
     </my-dialog>
 </template>
@@ -47,7 +48,7 @@ import CardForm from "@/components/CardForm.vue";
     }
   },
   methods: {
-  showDialog() {
+    showDialog() {
       this.dialogVisible = true;
     },
     hideDialog() {
@@ -56,6 +57,9 @@ import CardForm from "@/components/CardForm.vue";
     createCard(card) {
       this.cards.push(card);
       this.dialogVisible = false;
+    },
+    removeCard(card) {
+      this.cards = this.cards.filter(item => item.id !== card.id)
     },
     
 }

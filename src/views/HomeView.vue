@@ -3,7 +3,7 @@
   <main>
     <div class="container">
      <h3 class="title">Список панелей</h3>
-     <ColumnList />
+     <ColumnList :columns="columns"/>
     </div>
   </main>
 </template>
@@ -15,6 +15,11 @@ export default {
   components: {
     ColumnList,
   },
+  data() {
+    return {
+      columns: []
+    }
+  }
 }
 </script>
 

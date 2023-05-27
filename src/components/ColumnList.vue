@@ -5,8 +5,9 @@
       <column-item
         v-for="column in columns"
         :column="column"
+        :columns="columns"
         :key="column.id"
-        @remove="$emit('removeColumn', column)"
+        @remove="removeColumn"
       />
     </ul>
 
@@ -44,6 +45,7 @@ export default {
 data() {
     return {
       dialogVisible: false,
+      
     }
   },
 methods: {

@@ -11,12 +11,7 @@
       
       <CardsList :cards="cards" />
 
-
     </li>
-
-
-
-
   </template>
   
   <script>
@@ -30,7 +25,11 @@
         type: Object,
         required: true,
       },
-
+      columns: {
+      type: Array,
+      default: ()=>[],
+      required: true
+    }
     },
     data() {
     return {
