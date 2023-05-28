@@ -70,7 +70,6 @@
     flex-direction: column;
     padding: 12px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.4);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);

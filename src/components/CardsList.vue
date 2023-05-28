@@ -7,10 +7,12 @@
         draggable="true"
         v-for="(card,index) in this.cardsArr.filter(card => card.columnId==this.column.id)"
         @remove="removeCard"
-        @dragstart.self="pickupElem($event, card, index);"
-        @dragover.prevent="showDropPlace(card);"
+        @dragstart.self="pickupElem($event, card);"
+        @dragover.prevent="showOverElem(card);"
         @drop="moveElem(index);"
         @dragend.prevent="dragEndClear"
+        :style="overElem? 'background-color: rgba(0, 400, 255, 0.1); opacity: 0.6' : dragedElem ? 'background-color: white;' : 'background-color: rgba(255, 255, 255, 0.5); opacity:1'"
+        
       />
     </ul>
     <div  v-if='countCards<=0' class="no-cards__wrapper">
@@ -60,7 +62,7 @@ import CardForm from "@/components/CardForm.vue";
       dialogVisible: false,
       cardsArr: props.cards,
       dragedElem: null,
-      overElem: null
+      overElem: null,
     }
   },
   computed: {
@@ -82,8 +84,7 @@ import CardForm from "@/components/CardForm.vue";
     removeCard(id) {
       return this.cardsArr = this.cardsArr.filter(elem => elem.id !== id)
     },
-    pickupElem(event, elem, index) {
-      console.log(elem, index);
+    pickupElem(event, elem) {
       event.dataTransfer.effectAllowed = 'move'
       event.dataTransfer.dropEffect = "move";
       this.dragedElem = elem;
@@ -100,9 +101,8 @@ import CardForm from "@/components/CardForm.vue";
       this.dragedElem = null;
       this.overElem = null;
     },
-    showDropPlace(elem) {
+    showOverElem(elem) {
       if(this.dragedElem){     
-        console.log('dragedElem', this.dragedElem);
       if (elem.id !== this.dragedElem.id) {
         this.overElem = elem;
       } else {
