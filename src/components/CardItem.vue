@@ -1,6 +1,5 @@
 <template>
-    <li :cards='cards' :card=this.cardCurrent class="card"  draggable="true"
-      @dragstart="startDrag($event, this.cardCurrent)"
+    <li class="card"
       >
       <div class="card__top-wrapper">
         
@@ -45,8 +44,7 @@
       },
     data(props) {
     return {
-      cardCurrent: props.card,
-      cardMarks: props.card.marks
+      cardMarks: props.card.marks,
     }},
     computed:{
       checkDeadline(){
@@ -60,13 +58,6 @@
       }
         return true
       }
-    },
-    methods: {
-    startDrag(e, item) {
-      e.dataTransfer.dropEffect = 'move'
-      e.dataTransfer.effectAllowed = 'move'
-      e.dataTransfer.setData('itemId', item.id.toString())
-    },
     },
     }
    
