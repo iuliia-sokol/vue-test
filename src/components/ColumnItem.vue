@@ -1,9 +1,13 @@
 <template>
-    <li :column='column' class="column"
-    @dragover.prevent
-         @dragenter.prevent
-         @drop="onDrop($event, this.currentColumn.id, this.cards)"
-    draggable="true">
+    <li :column='column' class="column" @updateCards="updateCards"
+      @addCards="handleAddCard" @shiftCards="shiftCards"
+      @dragover.prevent
+      @dragenter.prevent
+      
+    draggable="true"
+
+     
+      >
       <div class="column__top-wrapper">
         <h4 class="column__title">{{ column.title }} <span class="cards-counter">{{countCards}}</span></h4>
         <my-button class="btn-transparent"
@@ -13,7 +17,8 @@
        </my-button>
       </div>
       
-      <CardsList :cards=this.cardsArr :column=this.currentColumn />
+      <CardsList :cards='cards' :column='column' @updateCards="updateCards"
+      @addCards="handleAddCard" @shiftCards="handleShiftCards"/>
 
     </li>
 
@@ -41,23 +46,25 @@
           required: true
         }
     },
-    data(props) {
-    return {
-      cardsArr: props.cards,
-      currentColumn: props.column
-    }
-  },
   computed:{
     countCards() {
-      return this.cardsArr.filter(item=> item.columnId == this.column.id).length
+      return this.cards.filter(item=> item.columnId == this.column.id).length
     }
 
+
   },
+  emits:['updateCards', 'addCards','shiftCards'],
   methods: {
-    onDrop(e, columnId, items){
-      const itemId=e.dataTransfer.getData('itemId')
-      const item=items.find((item)=> item.id==itemId)
-      item.columnId=columnId
+   
+
+    updateCards(id){
+      this.$emit('updateCards', id)
+    },
+    handleAddCard(item){
+      this.$emit('addCards', item)
+    },
+    handleShiftCards({index,dragedElem}){
+      this.$emit('shiftCards', {index,dragedElem})
     }
   }
 
