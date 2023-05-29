@@ -6,7 +6,7 @@
         <h4 class="card__title">{{ card.title }}</h4>
         <button class="card__delete-btn"
         
-         @click="this.$emit('remove', this.card.id)"
+         @click="handleCardRemove"
        >
        <font-awesome-icon icon="fa-solid fa-xmark" />
        </button>
@@ -57,8 +57,14 @@
         return true
       }
         return true
-      }
+      },
+  
     },
+    methods: {
+      handleCardRemove(){
+        this.$emit('remove', this.card.id)
+      }
+    }
     }
    
 </script>
@@ -78,6 +84,12 @@
 .card__top-wrapper{
     display: flex;
     justify-content: space-between;
+}
+.card__title{
+  overflow: hidden;
+    white-space: nowrap;
+    max-width: 80%;
+    text-overflow: ellipsis;
 }
 .card__content{
     display: flex;

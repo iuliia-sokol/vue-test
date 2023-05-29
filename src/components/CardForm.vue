@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent>
+    <form @submit.prevent :column="column">
       <h4>Створити картку</h4>
       <label class="label">
       <my-input

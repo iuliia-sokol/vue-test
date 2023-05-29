@@ -1,20 +1,21 @@
 <template>
-    <ul v-if="cardsArr.length > 0" :cards=this.cardsArr class="cards"> 
+    <TransitionGroup name="list" tag="ul" v-if="cards.length > 0" :cards=this.cards class="cards"> 
         <card-item  
-        :cards=this.cardsArr
+        :cards='cards'
         :card="card"
         :key="card.id"
         draggable="true"
-        v-for="(card,index) in this.cardsArr.filter(card => card.columnId==this.column.id)"
+        v-for="(card,index) in updatedCards"
         @remove="removeCard"
+        
         @dragstart.self="pickupElem($event, card);"
         @dragover.prevent="showOverElem(card);"
         @drop="moveElem(index);"
         @dragend.prevent="dragEndClear"
-        :style="overElem? 'background-color: rgba(0, 400, 255, 0.1); opacity: 0.6' : dragedElem ? 'background-color: white;' : 'background-color: rgba(255, 255, 255, 0.5); opacity:1'"
-        
+        :style="overElem? 'background-color: rgba(0, 400, 255, 0.1); opacity: 0.6' : dragedElem ? 'background-color: white;' : 'background-color: rgba(255, 255, 255, 0.5); opacity:1'"   
       />
-    </ul>
+    </TransitionGroup>
+
     <div  v-if='countCards<=0' class="no-cards__wrapper">
         <p class='no-cards__text'>
           Карток поки немає
@@ -43,6 +44,7 @@ import CardItem from '@/components/CardItem.vue'
 import MyButton from '@/components/MyButton.vue'
 import MyDialog from '@/components/MyDialog.vue'
 import CardForm from "@/components/CardForm.vue";
+
     export default {
     name:'CardsList',
     components: {CardItem, MyButton, MyDialog, CardForm },
@@ -57,18 +59,23 @@ import CardForm from "@/components/CardForm.vue";
         required: true,
       },
   },
-    data(props) {
-    return {
-      dialogVisible: false,
-      cardsArr: props.cards,
-      dragedElem: null,
-      overElem: null,
-    }
-  },
+  emits:['updateCards', 'addCards', 'shiftCards'],
   computed: {
    countCards(){
-    return this.cardsArr.filter(elem=> elem.columnId == this.column.id).length
+    return this.cards.filter(elem=> elem.columnId == this.column.id).length
+  },
+  updatedCards(){
+   return this.cards.filter(card => card.columnId==this.column.id)
   }
+  },
+
+  data() {
+    return {
+      dialogVisible: false,
+      dragedElem: null,
+      overElem: null,
+      cardsArr: this.cards.filter(card => card.columnId==this.column.id)
+    }
   },
   methods: {
     showDialog() {
@@ -78,11 +85,12 @@ import CardForm from "@/components/CardForm.vue";
       this.dialogVisible = false;
     },
     createCard(card) {
-      this.cardsArr.push(card);
       this.dialogVisible = false;
+      this.$emit('addCards', card)
     },
     removeCard(id) {
-      return this.cardsArr = this.cardsArr.filter(elem => elem.id !== id)
+    this.$emit('updateCards', id)
+
     },
     pickupElem(event, elem) {
       event.dataTransfer.effectAllowed = 'move'
@@ -92,9 +100,7 @@ import CardForm from "@/components/CardForm.vue";
     },
     moveElem(index) {
       if(this.dragedElem){
-      this.cardsArr = this.cardsArr.filter(elem => elem.id !== this.dragedElem.id);
-      this.cardsArr.splice(index, 0, this.dragedElem);
-      this.cardsArr.forEach((elem, index) => (elem.order = index + 1));
+      this.$emit('shiftCards', {index:index, dragedElem:this.dragedElem})
     }
     },
     dragEndClear() {
@@ -110,6 +116,10 @@ import CardForm from "@/components/CardForm.vue";
       }
     }
     },    
+    // updateArray(){
+    //   this.cardsArr=this.updatedCards()
+    // }
+
 }
     }
 </script>
@@ -124,5 +134,31 @@ import CardForm from "@/components/CardForm.vue";
 .btn-wrapper{
     display: flex;
     justify-content: center;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+/* .list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+} */
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
 }
 </style>
